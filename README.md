@@ -27,5 +27,7 @@ creating spiffs:
 
 uploading spiffs:
 ```
-esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 115200 write_flash -z 0x070000 ./tools/adf_music.bin
+esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 230400 write_flash -z 0x070000 ./tools/adf_music.bin
 ```
+
+

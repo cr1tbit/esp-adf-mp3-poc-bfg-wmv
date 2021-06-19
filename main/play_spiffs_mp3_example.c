@@ -90,7 +90,7 @@ void led_strip_hsv2rgb(uint32_t h, uint32_t s, uint32_t v, uint32_t *r, uint32_t
     }
 }
 
-bool g_enable_blinking = false;
+bool g_enable_blinking = true;
 
 // Task to be created.
 void vTaskSinger( void * pvParameters )
@@ -116,7 +116,7 @@ void vTaskSinger( void * pvParameters )
             .root = "/spiffs",
             .partition_label = NULL,
             .max_files = 5,
-            .format_if_mount_failed = true
+            .format_if_mount_failed = false
         };
         esp_periph_handle_t spiffs_handle = periph_spiffs_init(&spiffs_cfg);
 
@@ -279,11 +279,11 @@ void vTaskBlinker( void * pvParameters )
             ESP_ERROR_CHECK(strip->set_pixel(strip, i, red, green, blue));
         }
         start_rgb += 10;
-        if (g_enable_blinking){
+        //if (g_enable_blinking){
             ESP_ERROR_CHECK(strip->refresh(strip, 10)); 
-        } else {
-            strip->clear(strip, 10);
-        }
+        //} else {
+        //    strip->clear(strip, 10);
+       // }
         vTaskDelay(pdMS_TO_TICKS(EXAMPLE_CHASE_SPEED_MS));
     }
 }
@@ -325,11 +325,11 @@ void configure_ios(){
 
 void app_main(void)
 {
-    esp_pm_config_esp32_t pm_config;
-    pm_config.max_freq_mhz = 80;
-    pm_config.min_freq_mhz = 80;
-    pm_config.light_sleep_enable = false;
-    ESP_ERROR_CHECK( esp_pm_configure(&pm_config) );
+    //esp_pm_config_esp32_t pm_config;
+    //pm_config.max_freq_mhz = 80;
+    //pm_config.min_freq_mhz = 80;
+    //pm_config.light_sleep_enable = false;
+    //ESP_ERROR_CHECK( esp_pm_configure(&pm_config) );
 
     //TaskHandle_t xHandle = NULL;
     xNuttonSemaphore = xSemaphoreCreateBinary();
